@@ -1,0 +1,17 @@
+D:\InventoryManagement\InventoryManagement.Application\bin\Debug\net9.0\InventoryManagement.Application.deps.json
+D:\InventoryManagement\InventoryManagement.Application\bin\Debug\net9.0\InventoryManagement.Application.runtimeconfig.json
+D:\InventoryManagement\InventoryManagement.Application\bin\Debug\net9.0\InventoryManagement.Application.dll
+D:\InventoryManagement\InventoryManagement.Application\bin\Debug\net9.0\InventoryManagement.Application.pdb
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\InventoryManagement.Application.csproj.AssemblyReference.cache
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\InventoryManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\InventoryManagement.Application.AssemblyInfoInputs.cache
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\InventoryManagement.Application.AssemblyInfo.cs
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\InventoryManagement.Application.csproj.CoreCompileInputs.cache
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\InventoryManagement.Application.dll
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\refint\InventoryManagement.Application.dll
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\InventoryManagement.Application.pdb
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\InventoryManagement.Application.genruntimeconfig.cache
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\ref\InventoryManagement.Application.dll
+D:\InventoryManagement\InventoryManagement.Application\bin\Debug\net9.0\InventoryManagement.Domain.dll
+D:\InventoryManagement\InventoryManagement.Application\bin\Debug\net9.0\InventoryManagement.Domain.pdb
+D:\InventoryManagement\InventoryManagement.Application\obj\Debug\net9.0\Inventor.0D5EB3FB.Up2Date

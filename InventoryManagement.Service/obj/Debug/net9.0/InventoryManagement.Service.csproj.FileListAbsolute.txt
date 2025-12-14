@@ -1,0 +1,11 @@
+D:\InventoryManagement\InventoryManagement.Service\bin\Debug\net9.0\InventoryManagement.Service.deps.json
+D:\InventoryManagement\InventoryManagement.Service\bin\Debug\net9.0\InventoryManagement.Service.dll
+D:\InventoryManagement\InventoryManagement.Service\bin\Debug\net9.0\InventoryManagement.Service.pdb
+D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\InventoryManagement.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\InventoryManagement.Service.AssemblyInfoInputs.cache
+D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\InventoryManagement.Service.AssemblyInfo.cs
+D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\InventoryManagement.Service.csproj.CoreCompileInputs.cache
+D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\InventoryManagement.Service.dll
+D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\refint\InventoryManagement.Service.dll
+D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\InventoryManagement.Service.pdb
+D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\ref\InventoryManagement.Service.dll
