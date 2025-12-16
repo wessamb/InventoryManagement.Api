@@ -17,15 +17,16 @@ namespace InventoryManagement.Application.Interface
         Task<IEnumerable<User>> GetAllUsersAsync(int PageNumber = 1, int PageSize = 10);
 
         Task<IEnumerable<User>> GetAllUsersByRolesAsync(int RoleId, int PageNumber = 1, int PageSize = 10);
-        Task<User> RigisterAsync(string fullname, string phone, int RoleId, string Password);
 
-       
+        Task UpdateAsync(User user);
 
-        Task<string> LoginAsync(string phone, string password);
-        Task <string> ActivateUserAsync(int activateUser);
-        Task<string> DeactivateUserAsync(int deactivateUser);
+        Task AddAsync(User user);
 
-        Task<string> ChangeRoleAsync(int UserId, int NewRoleId);
+
+
+
+
+
 
 
 

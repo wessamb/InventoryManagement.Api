@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using InventoryManagement.Application.Command.UserCommand;
 using InventoryManagement.Application.Exceptions;
 using InventoryManagement.Application.Interface;
-
+using InventoryManagement.Application.Service;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,10 +16,10 @@ namespace InventoryManagement.Application.Handlers.UserHandlers
 {
     public class LoginCommandHandler : IRequestHandler<LoginCommand, string>
     {
-        private readonly IUserRepository _user;
+        private readonly IAuthService _user;
         
         private readonly ILogger<LoginCommandHandler>_logger;
-        public LoginCommandHandler(IUserRepository user, ILogger<LoginCommandHandler>logger)
+        public LoginCommandHandler(IAuthService user, ILogger<LoginCommandHandler>logger)
         {
 _user= user;
             _logger = logger;

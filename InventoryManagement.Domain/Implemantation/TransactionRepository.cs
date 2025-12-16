@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using InventoryManagement.Application.Interface;
 using InventoryManagement.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace InventoryManagement.Infrastructure.Implemantation
@@ -18,62 +19,46 @@ namespace InventoryManagement.Infrastructure.Implemantation
         _logger = logger;
 
         }
+
         public async Task<Transaction> AddTransactionAsync(Transaction transaction)
         {
-            var tra=  Transaction.Create(transaction.Amount, transaction.Type, transaction.PaymentMethod, transaction.UserId, transaction.Description, transaction.PurchaseInvoiceId, transaction.SalesInvoiceId);
-            await _context.Transactions.AddAsync(tra);
+            _context.Transactions.Add(transaction);
             await _context.SaveChangesAsync();
-            return tra;
+            return transaction;
         }
 
-        public Task DeleteTransactionAsync(int transactionId)
+        public async Task DeleteTransactionAsync(int transactionId)
         {
-            throw new NotImplementedException();
+            var transaction = await _context.Transactions
+          .FirstOrDefaultAsync(x => x.TransactionId == transactionId);
+
+            if (transaction == null)
+                throw new Exception("Transaction not found");
+
+            _context.Transactions.Remove(transaction);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Transaction>> GetAllTransactionsAsync()
+        public async Task<IEnumerable<Transaction>> GetAllTransactionsAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Transactions
+        .AsNoTracking()
+        .ToListAsync();
         }
 
-        public Task<IEnumerable<Transaction>> GetByPurchaseInvoiceAsync(int purchaseInvoiceId)
+        public async Task<Transaction> GetTransactionByIdAsync(int transactionId)
         {
-            throw new NotImplementedException();
+            var transaction = await  _context.Transactions.AsNoTracking().FirstOrDefaultAsync(x => x.TransactionId == transactionId);
+
+            if (transaction == null)
+                throw new Exception("Transaction not found");
+            return transaction;
         }
 
-        public Task<IEnumerable<Transaction>> GetBySalesInvoiceAsync(int salesInvoiceId)
+        public async Task UpdateTransactionAsync(Transaction transaction)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Transaction>> GetByUserAsync(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<decimal> GetTotalAmountByTypeAsync(TransactionType type)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Transaction> GetTransactionByIdAsync(int transactionId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Transaction>> GetTransactionsByDateRangeAsync(DateTime startDate, DateTime endDate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Transaction>> GetTransactionsByTypeAsync(TransactionType type)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateTransactionAsync(Transaction transaction)
-        {
-            throw new NotImplementedException();
+            _context.Transactions.Update(transaction);
+           await _context.SaveChangesAsync();
         }
     }
 }

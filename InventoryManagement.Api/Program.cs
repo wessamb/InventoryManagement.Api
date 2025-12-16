@@ -7,6 +7,8 @@ using FluentValidation;
 using InventoryManagement.Application.Command.UserCommand;
 using InventoryManagement.Application.Command.UserCommandValidation;
 using InventoryManagement.Application.Interface;
+using InventoryManagement.Application.Security;
+using InventoryManagement.Application.Service;
 using InventoryManagement.Infrastructure;
     using InventoryManagement.Infrastructure.Data;
 using InventoryManagement.Infrastructure.Implemantation;
@@ -26,6 +28,8 @@ using InventoryManagement.Infrastructure.Persistence;
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers();
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

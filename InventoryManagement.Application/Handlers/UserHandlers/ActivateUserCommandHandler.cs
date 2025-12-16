@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using InventoryManagement.Application.Command.UserCommand;
 using InventoryManagement.Application.Interface;
-
+using InventoryManagement.Application.Service;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -14,9 +14,9 @@ namespace InventoryManagement.Application.Handlers.UserHandlers
 {
     public class ActivateUserCommandHandler : IRequestHandler<ActivateUserCommand, string>
     {
-        private readonly IUserRepository _user;
+        private readonly IUserService _user;
         private readonly ILogger<ActivateUserCommandHandler>_logger;
-        public ActivateUserCommandHandler(IUserRepository user)
+        public ActivateUserCommandHandler(IUserService user)
         {
             _user = user;
         
@@ -24,9 +24,9 @@ namespace InventoryManagement.Application.Handlers.UserHandlers
 
         public async Task<string> Handle(ActivateUserCommand request, CancellationToken cancellationToken)
         {
-            var users = await _user.ActivateUserAsync(request.UserId);
-
-            return users;
+          await _user.ActivateAsync(request.UserId);
+           
+            return "exchange the status";
 
         }
     }

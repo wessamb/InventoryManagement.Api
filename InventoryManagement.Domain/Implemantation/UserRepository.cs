@@ -22,56 +22,26 @@ namespace InventoryManagement.Infrastructure.Implemantation
     {
         private readonly AppDbContext _context;
         private readonly ILogger<UserRepository> _logger;
-        private readonly JwtTokenGenerator _jwt;
-        public UserRepository(AppDbContext context,ILogger<UserRepository> logger,JwtTokenGenerator jwt)
+       
+        public UserRepository(AppDbContext context,ILogger<UserRepository> logger)
         {
             _context = context;
             _logger = logger;
-            _jwt = jwt;
+        
         }
 
-        public async Task<string> ActivateUserAsync(int activateUser)
+     
+
+        public async Task AddAsync(User user)
         {
-            var user =  await _context.Users.FirstOrDefaultAsync(u => u.UserId == activateUser);
-            if (user == null)
-            {
-                _logger.LogWarning("Activation failed. User with ID {UserId} not found.", activateUser);
-                throw new Exception("User not found");
-            }
-            user.Activate();
+            
+            await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
-            _logger.LogInformation("USER Activated Successfully ");
-            return "change stats User to Activate";
         }
 
-        public async Task<string> ChangeRoleAsync(int UserId, int NewRoleId)
-        {
-            var Change = await _context.Users.FirstOrDefaultAsync(u => u.UserId == UserId);
-            if (Change == null)
-            {
-                _logger.LogWarning("USER Not Found ");
-                return "User not found";
-            }
-            Change.ChangeRole(NewRoleId);
+    
 
-            await _context.SaveChangesAsync();
-            _logger.LogInformation("User role changed successfully ");
-            return "User role changed successfully";
-        }
-
-        public async Task<string> DeactivateUserAsync(int deactivateUser)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == deactivateUser);
-            if (user == null)
-            {
-                _logger.LogWarning("USER Not Found ");
-                throw new Exception("User not found");
-            }
-            user.Deactivate();
-            await _context.SaveChangesAsync();
-            _logger.LogInformation("USER Deactivated Successfully ");
-            return "change stats User to Deactivate ";
-        }
+        
 
         public async Task<IEnumerable<User>> GetAllUsersAsync(int PageNumber = 1, int PageSize = 10)
         {
@@ -121,45 +91,13 @@ namespace InventoryManagement.Infrastructure.Implemantation
             return user;
         }
 
-        public async Task<string> LoginAsync(string phone, string password)
+        public async Task UpdateAsync(User user)
         {
-            var user = await _context.Users.Include(x => x.Role)
-      .FirstOrDefaultAsync(x => x.PhoneNumber == phone);
-
-            if (user == null)
-            {
-                _logger.LogInformation("USER Not Found ");
-                throw new NotFoundException("User not found");
-            }
-            if (!user.CheckPassword(password))
-            {
-                _logger.LogWarning("Invalid password ");
-                throw new Exception("Invalid password");
-            }
-
-            return _jwt.GenerateToken(user);
+            
+          _context.Users.Update(user);
+          await  _context.SaveChangesAsync();
         }
 
-        public async Task<User> RigisterAsync(string fullname, string phone, int RoleId, string Password)
-        {
-            // 1. فحص إذا الرقم موجود مسبقًا
-            var exists = await _context.Users
-                .AnyAsync(x => x.PhoneNumber == phone);
 
-            if (exists)
-                throw new Exception("This number is already used");
-
-            // 2. إنشاء المستخدم الجديد
-            var newUser = new User(fullname,phone, RoleId);
-
-            newUser.SetPassword(Password);
-
-            // 3. إضافة المستخدم
-            _context.Users.Add(newUser);
-            await _context.SaveChangesAsync();
-
-            // 4. إرجاع المستخدم
-            return newUser;
-        }
     }
 }

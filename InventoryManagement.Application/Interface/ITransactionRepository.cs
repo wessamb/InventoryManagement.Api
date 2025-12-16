@@ -16,15 +16,6 @@ namespace InventoryManagement.Application.Interface
 
         Task DeleteTransactionAsync(int transactionId);
 
-        Task<IEnumerable<Transaction>> GetTransactionsByTypeAsync(TransactionType type);
 
-        Task<IEnumerable<Transaction>> GetTransactionsByDateRangeAsync(DateTime startDate, DateTime endDate);
-
-        Task<decimal> GetTotalAmountByTypeAsync(TransactionType type);
-
-        Task<IEnumerable<Transaction>> GetByUserAsync(int userId);
-
-        Task<IEnumerable<Transaction>> GetByPurchaseInvoiceAsync(int purchaseInvoiceId);
-        Task<IEnumerable<Transaction>> GetBySalesInvoiceAsync(int salesInvoiceId);
     }
 }

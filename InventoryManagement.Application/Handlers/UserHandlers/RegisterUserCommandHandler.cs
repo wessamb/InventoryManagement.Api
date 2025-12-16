@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using InventoryManagement.Application.Command.UserCommand;
 using InventoryManagement.Application.Entites;
 using InventoryManagement.Application.Interface;
+using InventoryManagement.Application.Service;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +14,9 @@ namespace InventoryManagement.Application.Handlers.UserHandlers
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, User>
     {
-        private readonly IUserRepository _user;
+        private readonly IAuthService _user;
 
-        public RegisterUserCommandHandler(IUserRepository user)
+        public RegisterUserCommandHandler(IAuthService user)
         {
             _user = user;
 
