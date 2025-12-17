@@ -3,7 +3,7 @@
 using System.Reflection;
 using System.Text;
 using FluentValidation;
-
+using InventoryManagement.Api.Middleware;
 using InventoryManagement.Application.Command.UserCommand;
 using InventoryManagement.Application.Command.UserCommandValidation;
 using InventoryManagement.Application.Interface;

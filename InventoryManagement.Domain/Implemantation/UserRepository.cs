@@ -8,7 +8,7 @@ using Azure.Core;
 using InventoryManagement.Application.Command.UserCommand;
 using InventoryManagement.Application.Common;
 using InventoryManagement.Application.Entites;
-using InventoryManagement.Application.Exceptions;
+
 using InventoryManagement.Application.Interface;
 using InventoryManagement.Application.Queries.UserQueries;
 using InventoryManagement.Infrastructure.Persistence;

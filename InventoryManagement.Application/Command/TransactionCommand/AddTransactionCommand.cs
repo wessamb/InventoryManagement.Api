@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MediatR;
+
+namespace InventoryManagement.Application.Command.TransactionCommand
+{
+    public sealed record AddTransactionCommand
+    (
+         decimal Amount,
+         TransactionType Type,
+         PaymentMethod PaymentMethod,
+         string Description,
+         DateTime Date,
+         int? PurchaseInvoiceId,
+         int? SalesInvoiceId,
+         int UserId
+
+    ) : IRequest<Transaction>;
+}

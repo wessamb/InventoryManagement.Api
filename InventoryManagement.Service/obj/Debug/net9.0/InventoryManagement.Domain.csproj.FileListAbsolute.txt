@@ -10,3 +10,4 @@ D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\InventoryMan
 D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\refint\InventoryManagement.Domain.dll
 D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\InventoryManagement.Domain.pdb
 D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\ref\InventoryManagement.Domain.dll
+D:\InventoryManagement\InventoryManagement.Service\obj\Debug\net9.0\InventoryManagement.Domain.sourcelink.json
