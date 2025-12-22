@@ -14,6 +14,7 @@ public class Transaction
     // طريقة الدفع
     public PaymentMethod PaymentMethod { get; set; } // Enum: Cash, Bank, Credit
 
+    public PurchaseInvoiceStatus Status { get; private set; }
     // وصف اختياري
     public string Description { get; set; }
 
@@ -103,4 +104,10 @@ public enum PaymentMethod
     Cash,
     Bank,
     Credit
+}
+public enum PurchaseInvoiceStatus
+{
+    Draft,
+    Confirmed,
+    Cancelled
 }

@@ -8,11 +8,13 @@ namespace InventoryManagement.Application.Entites
 {
     public class PurchaseInvoiceCost
     {
-        public int Id { get; set; }
-        public int PurchaseInvoiceId { get; set; }
-        public PurchaseInvoice PurchaseInvoice { get; set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public decimal Amount { get; private set; }
+        internal PurchaseInvoiceCost(string name, decimal amount) { if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Cost name is required");
+            if (amount <= 0) throw new ArgumentException("Amount must be greater than zero");
+            Name = name; Amount = amount; }
 
-        public string Name { get; set; }   // اسم المصروف، مثال: "تخليص جمركي"
-        public decimal Amount { get; set; } // قيمة المصروف
     }
+
 }

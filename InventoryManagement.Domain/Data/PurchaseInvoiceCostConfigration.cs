@@ -17,7 +17,7 @@ namespace InventoryManagement.Infrastructure.Data
             builder.HasKey(x => x.Id);
             builder.Property(x=>x.Name);
             builder.Property(x=>x.Amount).HasColumnType("decimal(18,2)");
-            builder.HasOne(x=>x.PurchaseInvoice).WithMany(x=>x.AdditionalCosts).HasForeignKey(x=>x.PurchaseInvoiceId);
+            
             
         }
     }

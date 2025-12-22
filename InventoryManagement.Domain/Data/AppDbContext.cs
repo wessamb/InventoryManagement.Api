@@ -1,5 +1,7 @@
 ﻿using System;
 using InventoryManagement.Application.Entites; // استخدم هذا فقط
+using InventoryManagement.Domain.Entites;
+using InventoryManagement.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +32,12 @@ namespace InventoryManagement.Infrastructure.Persistence
         public DbSet<ProductionOrderItemCost> ProductionOrderItemCosts { get; set; }
         public DbSet<InventoryRecord> InventoryRecords { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
+
+        public DbSet<InventoryTransaction> InventoryTransactions { get; set; }
+
+        public DbSet<PurchaseInvoicePayment> purchaseInvoicePayments { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

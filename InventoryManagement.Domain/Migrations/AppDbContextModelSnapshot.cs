@@ -185,14 +185,17 @@ namespace InventoryManagement.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("WasteQuantity")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ProductionOrderId");
 
-                    b.HasIndex("CreatedBy");
-
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ProductionOrders");
                 });
@@ -275,8 +278,10 @@ namespace InventoryManagement.Infrastructure.Migrations
 
                     b.Property<string>("PaymentStatus")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PaymentType")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("ShippingCost")
                         .HasColumnType("decimal(18,2)");
@@ -289,6 +294,9 @@ namespace InventoryManagement.Infrastructure.Migrations
                     b.Property<decimal>("TaxAmount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("TaxRate")
+                        .HasColumnType("decimal(5,4)");
+
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
@@ -299,8 +307,6 @@ namespace InventoryManagement.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("PurchaseInvoiceId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("PurchaseInvoices");
                 });
@@ -320,7 +326,7 @@ namespace InventoryManagement.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PurchaseInvoiceId")
+                    b.Property<int?>("PurchaseInvoiceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -328,38 +334,6 @@ namespace InventoryManagement.Infrastructure.Migrations
                     b.HasIndex("PurchaseInvoiceId");
 
                     b.ToTable("PurchaseInvoiceCost");
-                });
-
-            modelBuilder.Entity("InventoryManagement.Application.Entites.PurchaseInvoiceItem", b =>
-                {
-                    b.Property<int>("PurchaseInvoiceItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PurchaseInvoiceItemId"));
-
-                    b.Property<int>("InventoryID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PurchaseInvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Quantity")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("float");
-
-                    b.Property<double>("UnitPrice")
-                        .HasColumnType("float");
-
-                    b.HasKey("PurchaseInvoiceItemId");
-
-                    b.HasIndex("InventoryID");
-
-                    b.HasIndex("PurchaseInvoiceId");
-
-                    b.ToTable("PurchaseInvoiceItems");
                 });
 
             modelBuilder.Entity("InventoryManagement.Application.Entites.Role", b =>
@@ -547,6 +521,93 @@ namespace InventoryManagement.Infrastructure.Migrations
                     b.ToTable("Warehouses");
                 });
 
+            modelBuilder.Entity("InventoryManagement.Domain.Entites.InventoryTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("InventoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PurchaseInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("SalesInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InventoryId");
+
+                    b.ToTable("InventoryTransactions", (string)null);
+                });
+
+            modelBuilder.Entity("InventoryManagement.Domain.Entites.PurchaseInvoicePayment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Method")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PurchaseInvoiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PurchaseInvoiceId");
+
+                    b.ToTable("PurchaseInvoicePayments", (string)null);
+                });
+
+            modelBuilder.Entity("InventoryManagement.Domain.Entities.PurchaseInvoiceItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("InventoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PurchaseInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PurchaseInvoiceId");
+
+                    b.ToTable("PurchaseInvoiceItems");
+                });
+
             modelBuilder.Entity("Transaction", b =>
                 {
                     b.Property<int>("TransactionId")
@@ -563,8 +624,7 @@ namespace InventoryManagement.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(600)
-                        .HasColumnType("nvarchar(600)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
@@ -578,6 +638,9 @@ namespace InventoryManagement.Infrastructure.Migrations
                     b.Property<int?>("SalesInvoiceId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
@@ -588,11 +651,7 @@ namespace InventoryManagement.Infrastructure.Migrations
 
                     b.HasIndex("ProductionOrderId");
 
-                    b.HasIndex("PurchaseInvoiceId");
-
                     b.HasIndex("SalesInvoiceId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Transactions");
                 });
@@ -648,16 +707,16 @@ namespace InventoryManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("InventoryManagement.Application.Entites.ProductionOrder", b =>
                 {
-                    b.HasOne("InventoryManagement.Application.Entites.User", "User")
-                        .WithMany("ProductionOrders")
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("InventoryManagement.Application.Entites.Product", "Product")
                         .WithMany("ProductionOrders")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("InventoryManagement.Application.Entites.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -695,45 +754,12 @@ namespace InventoryManagement.Infrastructure.Migrations
                     b.Navigation("ProductionOrderItem");
                 });
 
-            modelBuilder.Entity("InventoryManagement.Application.Entites.PurchaseInvoice", b =>
-                {
-                    b.HasOne("InventoryManagement.Application.Entites.User", "User")
-                        .WithMany("PurchaseInvoices")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("InventoryManagement.Application.Entites.PurchaseInvoiceCost", b =>
                 {
-                    b.HasOne("InventoryManagement.Application.Entites.PurchaseInvoice", "PurchaseInvoice")
+                    b.HasOne("InventoryManagement.Application.Entites.PurchaseInvoice", null)
                         .WithMany("AdditionalCosts")
                         .HasForeignKey("PurchaseInvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PurchaseInvoice");
-                });
-
-            modelBuilder.Entity("InventoryManagement.Application.Entites.PurchaseInvoiceItem", b =>
-                {
-                    b.HasOne("Inventory", "Inventory")
-                        .WithMany("PurchaseItems")
-                        .HasForeignKey("InventoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("InventoryManagement.Application.Entites.PurchaseInvoice", "PurchaseInvoice")
-                        .WithMany("Items")
-                        .HasForeignKey("PurchaseInvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Inventory");
-
-                    b.Navigation("PurchaseInvoice");
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("InventoryManagement.Application.Entites.SalesInvoiceItem", b =>
@@ -766,33 +792,42 @@ namespace InventoryManagement.Infrastructure.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("InventoryManagement.Domain.Entites.InventoryTransaction", b =>
+                {
+                    b.HasOne("Inventory", "Inventory")
+                        .WithMany("inventoryTransactions")
+                        .HasForeignKey("InventoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Inventory");
+                });
+
+            modelBuilder.Entity("InventoryManagement.Domain.Entites.PurchaseInvoicePayment", b =>
+                {
+                    b.HasOne("InventoryManagement.Application.Entites.PurchaseInvoice", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("PurchaseInvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("InventoryManagement.Domain.Entities.PurchaseInvoiceItem", b =>
+                {
+                    b.HasOne("InventoryManagement.Application.Entites.PurchaseInvoice", null)
+                        .WithMany("Items")
+                        .HasForeignKey("PurchaseInvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Transaction", b =>
                 {
                     b.HasOne("InventoryManagement.Application.Entites.ProductionOrder", null)
                         .WithMany("Transactions")
                         .HasForeignKey("ProductionOrderId");
 
-                    b.HasOne("InventoryManagement.Application.Entites.PurchaseInvoice", "PurchaseInvoice")
+                    b.HasOne("InventoryManagement.Application.Entites.SalesInvoice", null)
                         .WithMany("Transactions")
-                        .HasForeignKey("PurchaseInvoiceId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("InventoryManagement.Application.Entites.SalesInvoice", "SalesInvoice")
-                        .WithMany("Transactions")
-                        .HasForeignKey("SalesInvoiceId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("InventoryManagement.Application.Entites.User", "User")
-                        .WithMany("Transactions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("PurchaseInvoice");
-
-                    b.Navigation("SalesInvoice");
-
-                    b.Navigation("User");
+                        .HasForeignKey("SalesInvoiceId");
                 });
 
             modelBuilder.Entity("Inventory", b =>
@@ -804,7 +839,7 @@ namespace InventoryManagement.Infrastructure.Migrations
                     b.Navigation("Products")
                         .IsRequired();
 
-                    b.Navigation("PurchaseItems");
+                    b.Navigation("inventoryTransactions");
                 });
 
             modelBuilder.Entity("InventoryManagement.Application.Entites.Product", b =>
@@ -836,7 +871,7 @@ namespace InventoryManagement.Infrastructure.Migrations
 
                     b.Navigation("Items");
 
-                    b.Navigation("Transactions");
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("InventoryManagement.Application.Entites.Role", b =>
@@ -847,15 +882,6 @@ namespace InventoryManagement.Infrastructure.Migrations
             modelBuilder.Entity("InventoryManagement.Application.Entites.SalesInvoice", b =>
                 {
                     b.Navigation("Items");
-
-                    b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("InventoryManagement.Application.Entites.User", b =>
-                {
-                    b.Navigation("ProductionOrders");
-
-                    b.Navigation("PurchaseInvoices");
 
                     b.Navigation("Transactions");
                 });

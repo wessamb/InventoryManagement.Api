@@ -1,4 +1,5 @@
 ﻿using InventoryManagement.Application.Entites;
+using InventoryManagement.Domain.Entites;
 
 
 public class Inventory
@@ -12,6 +13,8 @@ public class Inventory
 
     public Product Products { get; set; }
     public ICollection<BOM> BOMs { get; set; } = new List<BOM>();
-    public ICollection<PurchaseInvoiceItem> PurchaseItems { get; set; } = new List<PurchaseInvoiceItem>();
+
+    public ICollection<InventoryTransaction> inventoryTransactions { get; set; } = new List<InventoryTransaction>();
+    
     public ICollection<ProductionOrderItem> ProductionOrderItem { get; set; } = new List<ProductionOrderItem>();
 }
